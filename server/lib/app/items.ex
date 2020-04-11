@@ -52,6 +52,7 @@ defmodule App.Items do
   def create_book(attrs \\ %{}) do
     %Book{}
     |> Book.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:authors, [attrs.authors])
     |> Repo.insert()
   end
 

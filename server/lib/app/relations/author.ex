@@ -6,7 +6,7 @@ defmodule App.Relations.Author do
   schema "authors" do
     field :about, :string
     field :name, :string
-    has_one :book, Items.Book
+    belongs_to :book, Items.Book
 
     timestamps()
   end
@@ -14,7 +14,7 @@ defmodule App.Relations.Author do
   @doc false
   def changeset(author, attrs) do
     author
-    |> cast(attrs, [:name, :about])
+    |> cast(attrs, [:name, :about, :book_id])
     |> validate_required([:name, :about])
     |> unique_constraint(:name)
   end

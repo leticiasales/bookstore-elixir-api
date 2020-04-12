@@ -19,7 +19,11 @@ defmodule App.Items.Book do
   def changeset(book, attrs) do
     book
     |> cast(attrs, [:name, :summary, :price, :cover_url])
+    |> cast_assoc(:categories)
+    |> cast_assoc(:authors)
     |> validate_required([:name, :summary, :price, :cover_url])
     |> unique_constraint(:name)
   end
 end
+
+## def cast_assoc(changeset, name, opts) when is_atom(name) 

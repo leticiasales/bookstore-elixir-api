@@ -12,7 +12,7 @@ defmodule AppWeb.BookView do
 
   def render("book.json", %{book: book}) do
     authors = render_many(book.authors, AppWeb.AuthorView, "author.json")
-    categories = render_many(book.categories, AppWeb.CategoryView, "categories.json")
+    categories = render_many(book.categories, AppWeb.CategoryView, "category.json")
 
     %{
       id: book.id,

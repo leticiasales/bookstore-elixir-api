@@ -5,7 +5,7 @@ defmodule App.Repo.Migrations.CreateAuthors do
     create table(:authors) do
       add :name, :string
       add :about, :text
-      add :book_id, references(:books)
+      add :book_id, references(:books, on_delete: :delete_all)
 
       timestamps()
     end

@@ -49,10 +49,31 @@ defmodule App.Items do
       {:error, %Ecto.Changeset{}}
 
   """
+  def create_book(%{categories: categories, authors: authors} = attrs) do
+    %Book{}
+    |> Book.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:authors, [authors])
+    |> Ecto.Changeset.put_assoc(:categories, [categories])
+    |> Repo.insert()
+  end
+
+  def create_book(%{authors: authors} = attrs) do
+    %Book{}
+    |> Book.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:authors, [authors])
+    |> Repo.insert()
+  end
+
+  def create_book(%{categories: categories} = attrs) do
+    %Book{}
+    |> Book.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:categories, [categories])
+    |> Repo.insert()
+  end
+
   def create_book(attrs \\ %{}) do
     %Book{}
     |> Book.changeset(attrs)
-    |> Ecto.Changeset.put_assoc(:authors, [attrs.authors])
     |> Repo.insert()
   end
 
@@ -68,11 +89,44 @@ defmodule App.Items do
       {:error, %Ecto.Changeset{}}
 
   """
+  def update_book(%Book{categories: categories, authors: authors} = book, attrs) do
+    book
+    |> Book.changeset(attrs)
+    |> Ecto.Changeset.cast_assoc(:categories, categories)
+    |> Ecto.Changeset.cast_assoc(:authors, authors)
+    |> Repo.update()
+  end
+
+  def update_book(%Book{categories: categories} = book, attrs) do
+    book
+    |> Book.changeset(attrs)
+    |> Ecto.Changeset.cast_assoc(:categories, categories)
+    |> Repo.update()
+  end
+
+  def update_book(%Book{authors: authors} = book, attrs) do
+    book
+    |> Book.changeset(attrs)
+    |> Ecto.Changeset.cast_assoc(:authors, authors)
+    |> Repo.update()
+  end
+
   def update_book(%Book{} = book, attrs) do
     book
     |> Book.changeset(attrs)
     |> Repo.update()
   end
+
+#  defp link_user_and_company(user = %User{}, company = %Company{}) do
+#    user = Repo.preload(user, :companies)
+#    companies = user.companies ++ [company]
+#                |> Enum.map(&Ecto.Changeset.change/1)
+#
+#    user
+#    |> Ecto.Changeset.change
+#    |> Ecto.Changeset.put_assoc(:companies, companies)
+#    |> Repo.update
+#  end
 
   @doc """
   Deletes a Book.

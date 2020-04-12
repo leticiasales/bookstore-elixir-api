@@ -15,7 +15,7 @@ WORKDIR /app
 # expose port 4000
 EXPOSE 4000
 
-COPY ./run.sh /app/
+COPY . /app/
 
 RUN ["chmod", "+x", "run.sh"]
 CMD ["./run.sh"]

@@ -11,8 +11,10 @@ RUN apt-get update && apt-get install -y \
     inotify-tools \
  && rm -rf /var/lib/apt/lists/*
 
-# make /my_app the current working directory
+# make /app the current working directory
 WORKDIR /app
 
 # expose port 4000
 EXPOSE 4000
+
+CMD ["mix", "phx.server"]

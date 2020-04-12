@@ -3,7 +3,6 @@ services:
   server:
     container_name: server
     build: ./server
-    command: mix phx.server
     volumes:
       - ./server:/app
     ports:

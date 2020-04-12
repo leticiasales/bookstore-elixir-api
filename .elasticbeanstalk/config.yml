@@ -1,4 +1,6 @@
 branch-defaults:
+  eb:
+    environment: bookstore-dev2
   master:
     environment: bookstore-dev
     group_suffix: null

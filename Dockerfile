@@ -4,7 +4,7 @@ FROM elixir:1.7
 # see: https://hexdocs.pm/phoenix/installation.html
 RUN mix local.hex --force && \
     mix local.rebar --force &&\
-    mix archive.install https://github.com/phoenixframework/archives/raw/master/phx_new.ez --force
+    mix archive.install hex phx_new 1.4.16 -y
 
 # Installation of the inotify-tools
 RUN apt-get update && apt-get install -y \

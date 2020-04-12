@@ -49,6 +49,12 @@ defmodule App.Items do
       {:error, %Ecto.Changeset{}}
 
   """
+  def create_book(attrs \\ %{}) do
+    %Book{}
+    |> Book.changeset(attrs)
+    |> Repo.insert()
+  end
+
   def create_book(%{categories: categories, authors: authors} = attrs) do
     %Book{}
     |> Book.changeset(attrs)
@@ -71,11 +77,6 @@ defmodule App.Items do
     |> Repo.insert()
   end
 
-  def create_book(attrs \\ %{}) do
-    %Book{}
-    |> Book.changeset(attrs)
-    |> Repo.insert()
-  end
 
   @doc """
   Updates a book.

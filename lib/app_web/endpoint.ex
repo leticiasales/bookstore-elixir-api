@@ -35,6 +35,7 @@ defmodule AppWeb.Endpoint do
     key: "_app_key",
     signing_salt: "pIZrB3vO"
 
+  plug CORSPlug
   plug AppWeb.Router
 
   @doc """

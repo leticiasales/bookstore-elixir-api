@@ -24,7 +24,7 @@ config :logger, :console,
 
 config :cors_plug,
   origin: ["*"],
-  methods: ["GET", "POST", "OPTIONS"]
+  methods: ["GET, POST, PUT, DELETE, OPTIONS"]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -18,6 +18,7 @@ defmodule AppWeb.BookView do
       id: book.id,
       cover_url: book.cover_url,
       name: book.name,
+      summary: book.summary,
       price: book.price,
       authors: authors,
       categories: categories

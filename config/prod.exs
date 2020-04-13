@@ -18,7 +18,7 @@ config :app, AppWeb.Endpoint,
   url: [scheme: "http", host: System.get_env("HOST"), port: {:system, "PORT"}],
   code_reloader: false,
   cache_static_manifest: "priv/static/cache_manifest.json",
-  server: true
+  server: true,
   load_from_system_env: true
 
 # Do not print debug messages in production

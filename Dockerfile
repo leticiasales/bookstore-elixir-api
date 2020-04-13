@@ -15,7 +15,4 @@ WORKDIR /app
 # expose port 4000
 EXPOSE 4000
 
-COPY . /app/
-
-CMD ["chmod", "+x", "run.sh"]
-CMD ["./run.sh"]
+CMD ["mix", "phx.server"]

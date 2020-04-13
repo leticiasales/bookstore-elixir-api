@@ -17,5 +17,5 @@ EXPOSE 4000
 
 COPY . /app/
 
-RUN ["chmod", "+x", "run.sh"]
+CMD ["chmod", "+x", "run.sh"]
 CMD ["./run.sh"]

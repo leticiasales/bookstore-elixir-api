@@ -7,7 +7,7 @@ defmodule App.Items.Book do
   schema "books" do
     field :cover_url, :string
     field :name, :string
-    field :price, :decimal
+    field :price, :float
     field :summary, :string
     has_many :authors, Author, on_replace: :nilify
     many_to_many :categories, Category, join_through: "books_categories", on_replace: :delete

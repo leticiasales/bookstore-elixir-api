@@ -40,7 +40,6 @@ defmodule App.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:plug_cowboy, "~> 1.0"},
-      {:decimal, "~> 1.0"},
       {:cors_plug, "~> 2.0"}
     ]
   end

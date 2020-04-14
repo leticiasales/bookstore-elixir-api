@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
+COPY . /app
+
 # expose port 4000
 EXPOSE 4000
 

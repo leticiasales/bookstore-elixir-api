@@ -89,17 +89,6 @@ defmodule App.Items do
     |> Repo.update()
   end
 
-#  defp link_user_and_company(user = %User{}, company = %Company{}) do
-#    user = Repo.preload(user, :companies)
-#    companies = user.companies ++ [company]
-#                |> Enum.map(&Ecto.Changeset.change/1)
-#
-#    user
-#    |> Ecto.Changeset.change
-#    |> Ecto.Changeset.put_assoc(:companies, companies)
-#    |> Repo.update
-#  end
-
   @doc """
   Deletes a Book.
 
@@ -139,7 +128,7 @@ defmodule App.Items do
       %Book{}
 
   """
-  defp load_assoc(book, attrs) do
+  def load_assoc(book, attrs) do
     authors = Repo.all(from a in Author, where: a.name in ^attrs["authors"])
     categories = Repo.all(from c in Category, where: c.name in ^attrs["categories"])
     

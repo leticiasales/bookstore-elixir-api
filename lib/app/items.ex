@@ -7,6 +7,8 @@ defmodule App.Items do
   alias App.Repo
 
   alias App.Items.Book
+  alias App.Relations.Author
+  alias App.Relations.Category
 
   @doc """
   Returns the list of books.
@@ -49,34 +51,24 @@ defmodule App.Items do
       {:error, %Ecto.Changeset{}}
 
   """
+  def create_book(%{"authors" => authors, "categories" => categories} = attrs) do
+    authors = Repo.all(from a in Author, where: a.name in ^attrs["authors"])
+    categories = Repo.all(from c in Category, where: c.name in ^attrs["categories"])
+    attrs = Map.drop(attrs, ["authors", "categories"])
+    
+    %Book{}
+    |> Book.changeset(attrs)
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:authors, authors)
+    |> Ecto.Changeset.put_assoc(:categories, categories)
+    |> Repo.insert()
+  end
+
   def create_book(attrs \\ %{}) do
     %Book{}
     |> Book.changeset(attrs)
     |> Repo.insert()
   end
-
-  def create_book(%{categories: categories, authors: authors} = attrs) do
-    %Book{}
-    |> Book.changeset(attrs)
-    |> Ecto.Changeset.put_assoc(:authors, [authors])
-    |> Ecto.Changeset.put_assoc(:categories, [categories])
-    |> Repo.insert()
-  end
-
-  def create_book(%{authors: authors} = attrs) do
-    %Book{}
-    |> Book.changeset(attrs)
-    |> Ecto.Changeset.put_assoc(:authors, [authors])
-    |> Repo.insert()
-  end
-
-  def create_book(%{categories: categories} = attrs) do
-    %Book{}
-    |> Book.changeset(attrs)
-    |> Ecto.Changeset.put_assoc(:categories, [categories])
-    |> Repo.insert()
-  end
-
 
   @doc """
   Updates a book.
@@ -90,25 +82,16 @@ defmodule App.Items do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_book(%Book{categories: categories, authors: authors} = book, attrs) do
-    book
-    |> Book.changeset(attrs)
-    |> Ecto.Changeset.cast_assoc(:categories, categories)
-    |> Ecto.Changeset.cast_assoc(:authors, authors)
-    |> Repo.update()
-  end
+  def update_book(%Book{} = book, %{"authors" => authors, "categories" => categories} = attrs) do
+    authors = Repo.all(from a in Author, where: a.name in ^attrs["authors"])
+    categories = Repo.all(from c in Category, where: c.name in ^attrs["categories"])
+    attrs = Map.drop(attrs, ["authors", "categories"])
 
-  def update_book(%Book{categories: categories} = book, attrs) do
     book
     |> Book.changeset(attrs)
-    |> Ecto.Changeset.cast_assoc(:categories, categories)
-    |> Repo.update()
-  end
-
-  def update_book(%Book{authors: authors} = book, attrs) do
-    book
-    |> Book.changeset(attrs)
-    |> Ecto.Changeset.cast_assoc(:authors, authors)
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:categories, categories)
+    |> Ecto.Changeset.put_assoc(:authors, authors)
     |> Repo.update()
   end
 

@@ -5,7 +5,7 @@ defmodule App.Repo.Migrations.CreateBooks do
     create table(:books) do
       add :name, :string
       add :summary, :text
-      add :price, :decimal
+      add :price, :float
       add :cover_url, :string
 
       timestamps()

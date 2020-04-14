@@ -9,8 +9,8 @@ defmodule App.Items.Book do
     field :name, :string
     field :price, :decimal
     field :summary, :string
-    has_many :authors, Author
-    many_to_many :categories, Category, join_through: "books_categories"
+    has_many :authors, Author, on_replace: :nilify
+    many_to_many :categories, Category, join_through: "books_categories", on_replace: :delete
 
     timestamps()
   end

@@ -52,15 +52,9 @@ defmodule App.Items do
 
   """
   def create_book(%{"authors" => authors, "categories" => categories} = attrs) do
-    authors = Repo.all(from a in Author, where: a.name in ^attrs["authors"])
-    categories = Repo.all(from c in Category, where: c.name in ^attrs["categories"])
-    attrs = Map.drop(attrs, ["authors", "categories"])
-    
     %Book{}
-    |> Book.changeset(attrs)
-    |> Ecto.Changeset.change()
-    |> Ecto.Changeset.put_assoc(:authors, authors)
-    |> Ecto.Changeset.put_assoc(:categories, categories)
+    |> Book.changeset(Map.drop(attrs, ["authors", "categories"]))
+    |> load_assoc(attrs)
     |> Repo.insert()
   end
 
@@ -83,15 +77,9 @@ defmodule App.Items do
 
   """
   def update_book(%Book{} = book, %{"authors" => authors, "categories" => categories} = attrs) do
-    authors = Repo.all(from a in Author, where: a.name in ^attrs["authors"])
-    categories = Repo.all(from c in Category, where: c.name in ^attrs["categories"])
-    attrs = Map.drop(attrs, ["authors", "categories"])
-
     book
-    |> Book.changeset(attrs)
-    |> Ecto.Changeset.change()
-    |> Ecto.Changeset.put_assoc(:categories, categories)
-    |> Ecto.Changeset.put_assoc(:authors, authors)
+    |> Book.changeset(Map.drop(attrs, ["authors", "categories"]))
+    |> load_assoc(attrs)
     |> Repo.update()
   end
 
@@ -139,5 +127,25 @@ defmodule App.Items do
   """
   def change_book(%Book{} = book) do
     Book.changeset(book, %{})
+  end
+
+
+  @doc """
+  Returns an `%Book{}` with authors and categories associated.
+
+  ## Examples
+
+      iex> load_assoc(book, attrs)
+      %Book{}
+
+  """
+  defp load_assoc(book, attrs) do
+    authors = Repo.all(from a in Author, where: a.name in ^attrs["authors"])
+    categories = Repo.all(from c in Category, where: c.name in ^attrs["categories"])
+    
+    book
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.put_assoc(:authors, authors)
+    |> Ecto.Changeset.put_assoc(:categories, categories)
   end
 end

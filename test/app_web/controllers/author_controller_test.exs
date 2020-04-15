@@ -1,15 +1,15 @@
 defmodule AppWeb.AuthorControllerTest do
   use AppWeb.ConnCase
 
-  alias App.Book
-  alias App.Book.Author
+  alias App.Relations
+  alias App.Relations.Author
 
   @create_attrs %{about: "some about", name: "some name"}
   @update_attrs %{about: "some updated about", name: "some updated name"}
   @invalid_attrs %{about: nil, name: nil}
 
   def fixture(:author) do
-    {:ok, author} = Book.create_author(@create_attrs)
+    {:ok, author} = Relations.create_author(@create_attrs)
     author
   end
 

@@ -6,7 +6,7 @@ defmodule App.ItemsTest do
   describe "books" do
     alias App.Items.Book
 
-    @valid_attrs %{cover_url: "some cover_url", name: "some name", price: "120.5", summary: "some summary"}
+    @valid_attrs %{cover_url: "some cover_url", name: "some name", price: 120.5, summary: "some summary"}
     @update_attrs %{cover_url: "some updated cover_url", name: "some updated name", price: "456.7", summary: "some updated summary"}
     @invalid_attrs %{cover_url: nil, name: nil, price: nil, summary: nil}
 
@@ -17,6 +17,7 @@ defmodule App.ItemsTest do
         |> Items.create_book()
 
       book
+      |> Repo.preload([:authors, :categories])
     end
 
     test "list_books/0 returns all books" do
@@ -33,7 +34,7 @@ defmodule App.ItemsTest do
       assert {:ok, %Book{} = book} = Items.create_book(@valid_attrs)
       assert book.cover_url == "some cover_url"
       assert book.name == "some name"
-      assert book.price == Decimal.new("120.5")
+      assert book.price == 120.5
       assert book.summary == "some summary"
     end
 
@@ -47,7 +48,7 @@ defmodule App.ItemsTest do
       assert %Book{} = book
       assert book.cover_url == "some updated cover_url"
       assert book.name == "some updated name"
-      assert book.price == Decimal.new("456.7")
+      assert book.price == 456.7
       assert book.summary == "some updated summary"
     end
 

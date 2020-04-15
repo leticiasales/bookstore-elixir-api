@@ -34,6 +34,13 @@ docker-compose up -d
 
 Now go to [client repository][https://github.com/leticiasales/bookstore-vue-client] and follow the instructions.
 
+
+#### Tests
+
+```shell
+docker-compose run --rm api mix test
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.

@@ -1,15 +1,15 @@
 defmodule AppWeb.CategoryControllerTest do
   use AppWeb.ConnCase
 
-  alias App.Book
-  alias App.Book.Category
+  alias App.Relations
+  alias App.Relations.Category
 
   @create_attrs %{name: "some name"}
   @update_attrs %{name: "some updated name"}
   @invalid_attrs %{name: nil}
 
   def fixture(:category) do
-    {:ok, category} = Book.create_category(@create_attrs)
+    {:ok, category} = Relations.create_category(@create_attrs)
     category
   end
 

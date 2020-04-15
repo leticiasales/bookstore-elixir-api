@@ -4,8 +4,8 @@ defmodule AppWeb.BookControllerTest do
   alias App.Items
   alias App.Items.Book
 
-  @create_attrs %{cover_url: "some cover_url", name: "some name", price: "120.5", summary: "some summary"}
-  @update_attrs %{cover_url: "some updated cover_url", name: "some updated name", price: "456.7", summary: "some updated summary"}
+  @create_attrs %{cover_url: "some cover_url", name: "some name", price: "120.5", summary: "some summary", authors: [], categories: []}
+  @update_attrs %{cover_url: "some updated cover_url", name: "some updated name", price: 456.7, summary: "some updated summary", authors: [], categories: []}
   @invalid_attrs %{cover_url: nil, name: nil, price: nil, summary: nil}
 
   def fixture(:book) do
@@ -34,8 +34,10 @@ defmodule AppWeb.BookControllerTest do
         "id" => id,
         "cover_url" => "some cover_url",
         "name" => "some name",
-        "price" => "120.5",
-        "summary" => "some summary"}
+        "price" => 120.5,
+        "summary" => "some summary",
+        "authors" => [],
+        "categories" => []}
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -56,8 +58,10 @@ defmodule AppWeb.BookControllerTest do
         "id" => id,
         "cover_url" => "some updated cover_url",
         "name" => "some updated name",
-        "price" => "456.7",
-        "summary" => "some updated summary"}
+        "price" => 456.7,
+        "summary" => "some updated summary",
+        "authors" => [],
+        "categories" => []}
     end
 
     test "renders errors when data is invalid", %{conn: conn, book: book} do
